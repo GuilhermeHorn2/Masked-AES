@@ -52,24 +52,6 @@ ShiftRows / MixColumns: Linear operations are performed share-wise (⊕-linear).
 
 After all rounds, the two shares are recombined to reveal the final ciphertext.
 
-Example Usage
-key = [0x00] * 16
-exp_key = key_exp(key)
-
-# Example 4x4 masked plaintext matrix
-text = [
-    [[0xfe, 0x01], [0xfe, 0x01], [0xfe, 0x01], [0xfe, 0x01]],
-    [[0xfd, 0x02], [0xfd, 0x02], [0xfd, 0x02], [0xfd, 0x02]],
-    [[0xfc, 0x03], [0xfc, 0x03], [0xfc, 0x03], [0xfc, 0x03]],
-    [[0xf8, 0x04], [0x04, 0x04], [0x04, 0x04], [0x04, 0x04]],
-]
-
-exp_key = mask_exp_keys(exp_key)
-cipher = masked_aes(text, exp_key, 1)
-
-# Recombine shares to get ciphertext
-out = [cipher[j][i][0] ^ cipher[j][i][1] for i in range(4) for j in range(4)]
-print("Ciphertext:", "".join(f"{b:02x}" for b in out))
 
 Security Notes
 
